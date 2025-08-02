@@ -1,0 +1,2 @@
+# WAYRA-SAT
+Copernicus Hackathon
