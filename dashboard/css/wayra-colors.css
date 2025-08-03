@@ -1,0 +1,66 @@
+/* 
+ * WAYRA SAT - Sistema de Colores Centralizado
+ * Modificar solo este archivo para cambiar toda la paleta
+ */
+
+:root {
+    /* ========== COLORES PRINCIPALES WAYRA SAT ========== */
+    --wayra-azul-oceano: #0891b2;    /* Océano Pacífico */
+    --wayra-verde-andes: #059669;    /* Montañas andinas */
+    --wayra-tierra: #a16207;         /* Tierra altiplánica */
+    --wayra-cielo: #0284c7;          /* Cielo andino */
+    
+    /* ========== SISTEMA DE ALERTAS ========== */
+    /* Versión cultural andina (actual) */
+    --alerta-verde: #16a34a;         /* Verde coca */
+    --alerta-amarillo: #ca8a04;      /* Oro incaico */
+    --alerta-naranja: #ea580c;       /* Fuego volcánico */
+    --alerta-rojo: #dc2626;          /* Rojo ritual */
+    
+    /* Versión estándar (descomenta las siguientes 4 líneas y comenta las 4 anteriores para usar colores estándar)
+    --alerta-verde: #22c55e;
+    --alerta-amarillo: #eab308;
+    --alerta-naranja: #f97316;
+    --alerta-rojo: #ef4444;
+    */
+    
+    /* ========== NEUTRALES Y TEXTOS ========== */
+    --fondo-claro: #fefdf8;          /* Nieve andina */
+    --texto-oscuro: #1c1917;         /* Obsidiana */
+    --texto-claro: #f8fafc;          /* Texto en fondos oscuros */
+    --gris-suave: #78716c;           /* Piedra andina */
+    --gris-medio: #57534e;           /* Texto secundario oscuro */
+    --blanco-puro: #ffffff;
+    
+    /* ========== GRADIENTES PRINCIPALES ========== */
+    --gradiente-oceano-andes: linear-gradient(135deg, var(--wayra-azul-oceano), var(--wayra-verde-andes));
+    --gradiente-cielo-oceano: linear-gradient(135deg, var(--wayra-cielo), var(--wayra-azul-oceano));
+    --gradiente-tierra-suave: linear-gradient(135deg, var(--fondo-claro), var(--blanco-puro));
+    
+    /* ========== SOMBRAS ========== */
+    --sombra-suave: 0 4px 20px rgba(28, 25, 23, 0.08);
+    --sombra-media: 0 4px 20px rgba(28, 25, 23, 0.15);
+    --sombra-fuerte: 0 6px 25px rgba(28, 25, 23, 0.25);
+    
+    /* ========== TRANSPARENCIAS ========== */
+    --alerta-verde-alpha: rgba(22, 163, 74, 0.1);
+    --alerta-amarillo-alpha: rgba(202, 138, 4, 0.1);
+    --alerta-naranja-alpha: rgba(234, 88, 12, 0.1);
+    --alerta-rojo-alpha: rgba(220, 38, 38, 0.1);
+    
+    /* ========== BORDES ========== */
+    --borde-suave: 1px solid rgba(161, 98, 7, 0.1);
+    --borde-medio: 2px solid var(--wayra-tierra);
+    --borde-alerta: 3px solid var(--alerta-naranja);
+}
+
+/* ========== TEMA OSCURO (para futuro) ========== */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fondo-claro: #1c1917;
+        --texto-oscuro: #f8fafc;
+        --texto-claro: #1c1917;
+        --blanco-puro: #292524;
+        --gris-suave: #a8a29e;
+    }
+}

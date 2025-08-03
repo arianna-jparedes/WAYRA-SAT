@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAYRA SAT - Sistema de Alerta Temprana</title>
+    
+    <!-- Importar sistema de colores WAYRA SAT -->
+    <link rel="stylesheet" href="css/wayra-colors.css">
+    <link rel="stylesheet" href="css/wayra-base.css">
+    
+    <!-- Meta tags para SEO y redes sociales -->
+    <meta name="description" content="Sistema de Alerta Temprana basado en teleconexiones El Niño para América Latina y el Caribe">
+    <meta name="keywords" content="El Niño, alerta temprana, LAC, teleconexiones, clima">
+    
+    <!-- Favicon placeholder -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌪️</text></svg>">
+</head>
+<body>
+    <!-- Header Principal -->
+    <header class="header">
+        <div class="logo-wayra">
+            <span class="viento-icon">🌪️</span>
+            WAYRA SAT
+        </div>
+        <div class="subtitle">
+            Sistema de Alerta Temprana - Teleconexiones El Niño → Eventos Extremos LAC
+        </div>
+    </header>
+
+    <!-- Container Principal -->
+    <div class="dashboard-container">
+        <main class="main-content">
+            <!-- Sección de Mapa -->
+            <section class="map-section">
+                <!-- Contenedor del Mapa -->
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        🗺️ Mapa Interactivo LAC
+                        <br>
+                        <small style="opacity: 0.8; margin-top: 0.5rem; display: block;">
+                            (Se cargará en Fase 3)
+                        </small>
+                    </div>
+                </div>
+                
+                <!-- Timeline Histórico -->
+                <div class="timeline-container">
+                    <div class="timeline-title">
+                        📅 Timeline Histórico: El Niño 2015-2016
+                    </div>
+                    <div class="timeline-placeholder">
+                        Timeline interactivo se implementará en Fase 5
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel Lateral -->
+            <aside class="side-panel">
+                <!-- Indicador de Estado Principal -->
+                <div class="status-indicator alerta-naranja">
+                    <div class="status-title">Estado del Sistema</div>
+                    <div class="status-value">ALERTA NARANJA</div>
+                    <div class="status-subtitle">El Niño Activo</div>
+                </div>
+
+                <!-- Grid de Métricas -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Índice El Niño</div>
+                        <div class="metric-value">+1.2°C</div>
+                        <div class="metric-description">
+                            Región Niño 3.4<br>
+                            Actualizado hace 2 horas
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Lead Time</div>
+                        <div class="metric-value">2-3 meses</div>
+                        <div class="metric-description">
+                            Anticipación promedio<br>
+                            para eventos extremos
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Regiones Monitoreadas</div>
+                        <div class="metric-value">8 activas</div>
+                        <div class="metric-description">
+                            Ecuador, Perú, Colombia<br>
+                            En vigilancia continua
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Skill Score CCM</div>
+                        <div class="metric-value">0.84</div>
+                        <div class="metric-description">
+                            Correlación causal validada<br>
+                            Confianza estadística alta
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Última Actualización</div>
+                        <div class="metric-value">14:30</div>
+                        <div class="metric-description">
+                            Datos Sentinel-3 SLSTR<br>
+                            Próxima: 18:30 UTC
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-label">Resolución Espacial</div>
+                        <div class="metric-value">0.1°</div>
+                        <div class="metric-description">
+                            ~11km resolución<br>
+                            vs 25km competencia
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- JavaScript placeholder -->
+    <script>
+        // WAYRA SAT Dashboard - Core functionality
+        console.log('🌪️ WAYRA SAT Dashboard iniciado');
+        console.log('📊 Fase 1: Estructura base cargada correctamente');
+        
+        // Placeholder para futuras fases
+        const wayraCore = {
+            version: '1.0.0-alpha',
+            phase: 'Fase 1 - Estructura Base',
+            nextPhase: 'Fase 2 - Sistema de Alertas Estático',
+            
+            // Datos simulados para métricas
+            currentData: {
+                ninoIndex: 1.2,
+                status: 'alerta-naranja',
+                lastUpdate: '14:30',
+                activeRegions: 8,
+                skillScore: 0.84,
+                leadTime: '2-3 meses'
+            },
+            
+            // Log del progreso
+            log: function(message) {
+                console.log(`[WAYRA SAT] ${message}`);
+            }
+        };
+        
+        wayraCore.log('Métricas base inicializadas');
+        wayraCore.log(`Estado actual: ${wayraCore.currentData.status}`);
+        
+        // Test responsivo
+        window.addEventListener('resize', () => {
+            wayraCore.log(`Viewport: ${window.innerWidth}x${window.innerHeight}`);
+        });
+    </script>
+
+    <!-- Mapbox GL JS CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    
+    <!-- Mapbox GL JS -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+    
+    <!-- JavaScript WAYRA SAT - ORDEN IMPORTA -->
+    <script src="js/wayra-alerts.js"></script>  <!-- PRIMERO -->
+    <script src="js/wayra-map.js"></script>
+    
+</body>
+</html>
