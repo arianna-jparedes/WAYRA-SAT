@@ -131,7 +131,7 @@ function updateMetrics(scenario) {
 }
 
 /**
- * Aplica el escenario completo
+ * Aplica el escenario - FASE 4: SOLO PANEL LATERAL
  */
 function applyScenario(scenarioName) {
     const scenario = wayraData.scenarios[scenarioName];
@@ -142,19 +142,17 @@ function applyScenario(scenarioName) {
 
     wayraData.currentScenario = scenarioName;
     
-    // Actualizar UI
+    // Actualizar SOLO el panel lateral (UI)
     updateStatusIndicator(scenario);
     updateMetrics(scenario);
     
     // Actualizar timestamp
     updateLastRefresh();
 
-    // Actualizar marcadores del mapa
-    if (window.wayraMap && window.wayraMap.onScenarioChange) {
-        window.wayraMap.onScenarioChange(scenarioName);
-    }
-
-    console.log(`[WAYRA] Escenario aplicado: ${scenarioName}`);
+    // EN FASE 4: NO actualizar marcadores del mapa
+    // Los marcadores se controlan por los filtros independientes
+    console.log(`[WAYRA] Panel lateral actualizado: ${scenarioName}`);
+    console.log(`[WAYRA] Marcadores controlados por filtros independientes`);
 }
 
 /**
@@ -228,10 +226,10 @@ function updateAutoButton() {
     }
 }
 
-// ========== CONTROLES INTERACTIVOS ==========
+// ========== CONTROLES INTERACTIVOS - FASE 4: FILTROS ==========
 
 /**
- * Crea botones de control para testing manual
+ * Crea botones de control - VERSIÓN FILTROS FINALES
  */
 function createControlButtons() {
     // Crear container para botones
@@ -250,7 +248,7 @@ function createControlButtons() {
 
     // Título
     const title = document.createElement('div');
-    title.textContent = 'Controles Demo';
+    title.textContent = 'Filtros de Alerta';
     title.style.cssText = `
         font-size: 0.8rem;
         font-weight: 600;
@@ -260,16 +258,26 @@ function createControlButtons() {
     `;
     controlsContainer.appendChild(title);
 
-    // Crear botones para cada escenario
-    Object.keys(wayraData.scenarios).forEach(scenarioName => {
+    // Crear botones filtro
+    const filterButtons = [
+        { name: 'normal', label: 'NORMAL', level: 'verde' },
+        { name: 'vigilancia', label: 'VIGILANCIA', level: 'amarillo' },
+        { name: 'alerta', label: 'ALERTA', level: 'naranja' },
+        { name: 'critico', label: 'CRÍTICO', level: 'rojo' }
+    ];
+
+    filterButtons.forEach(buttonInfo => {
         const button = document.createElement('button');
-        button.textContent = scenarioName.toUpperCase();
+        button.textContent = buttonInfo.label;
+        button.className = `filter-btn-${buttonInfo.name}`;
+        
+        // ESTILOS INICIALES: Todos activos (azul)
         button.style.cssText = `
             display: block;
             width: 100%;
             margin-bottom: 0.25rem;
             padding: 0.5rem;
-            border: none;
+            border: 2px solid var(--wayra-azul-oceano);
             border-radius: 4px;
             background: var(--wayra-azul-oceano);
             color: var(--texto-claro);
@@ -280,28 +288,56 @@ function createControlButtons() {
         `;
         
         button.addEventListener('click', () => {
-            // Detener auto demo si está activo al hacer click manual
+            // Detener auto demo si está activo
             if (isAutoDemoActive) {
                 stopAutoDemo();
             }
-            applyScenario(scenarioName);
+            
+            // NUEVA LÓGICA CON FALLBACK ROBUSTO
+            if (window.wayraMap && typeof window.wayraMap.toggleAlertFilter === 'function') {
+                window.wayraMap.toggleAlertFilter(buttonInfo.name, button);
+            } else {
+                console.warn('[WAYRA ALERTS] Esperando inicialización del mapa...');
+                // Reintentar después de 500ms
+                setTimeout(() => {
+                    if (window.wayraMap && typeof window.wayraMap.toggleAlertFilter === 'function') {
+                        window.wayraMap.toggleAlertFilter(buttonInfo.name, button);
+                    } else {
+                        console.error('[WAYRA ALERTS] wayraMap.toggleAlertFilter aún no disponible');
+                        // Fallback visual temporal
+                        if (button.style.background === 'var(--wayra-azul-oceano)') {
+                            button.style.background = 'transparent';
+                            button.style.color = 'var(--wayra-azul-oceano)';
+                        } else {
+                            button.style.background = 'var(--wayra-azul-oceano)';
+                            button.style.color = 'var(--texto-claro)';
+                        }
+                    }
+                }, 500);
+            }
         });
         
+        // Hover effects mejorados
         button.addEventListener('mouseover', () => {
-            button.style.background = 'var(--wayra-verde-andes)';
+            if (button.style.background === 'var(--wayra-azul-oceano)') {
+                button.style.background = 'var(--wayra-verde-andes)';
+            }
         });
         
         button.addEventListener('mouseout', () => {
-            button.style.background = 'var(--wayra-azul-oceano)';
+            // Restaurar color según estado
+            if (button.style.background === 'var(--wayra-verde-andes)') {
+                button.style.background = 'var(--wayra-azul-oceano)';
+            }
         });
 
         controlsContainer.appendChild(button);
     });
 
-    // Botón auto demo
+    // Botón auto demo (mantenido)
     const autoButton = document.createElement('button');
     autoButton.textContent = 'AUTO DEMO';
-    autoButton.className = 'auto-demo-button';  // Agregar clase para encontrarlo fácil
+    autoButton.className = 'auto-demo-button';
     autoButton.style.cssText = `
         display: block;
         width: 100%;
@@ -317,33 +353,53 @@ function createControlButtons() {
         transition: all 0.3s ease;
     `;
     
-    autoButton.addEventListener('click', startAutoDemo);  // Ya maneja toggle internamente
+    autoButton.addEventListener('click', startAutoDemo);
     controlsContainer.appendChild(autoButton);
 
     document.body.appendChild(controlsContainer);
-    console.log('[WAYRA] Controles de demo creados');
+    console.log('[WAYRA ALERTS] 🔍 Controles de filtro creados - FASE 4');
+}
+
+/**
+ * FUNCIÓN LEGACY DESHABILITADA - Ya no se usa en Fase 4
+ */
+function toggleScenario(scenarioName, buttonElement) {
+    console.warn('[WAYRA ALERTS] ⚠️ toggleScenario() es legacy - usando filtros en Fase 4');
+    // Esta función ya no se usa en Fase 4
 }
 
 // ========== INICIALIZACIÓN ==========
 
 /**
- * Inicializa el sistema de alertas
+ * Inicializa el sistema de alertas - FASE 4 ACTUALIZADA
  */
 function initWayraAlerts() {
-    console.log('🌪️ [WAYRA] Sistema de Alertas iniciando...');
+    console.log('🌪️ [WAYRA] Sistema de Alertas iniciando - FASE 4...');
     
-    // Aplicar escenario inicial
-    applyScenario(wayraData.currentScenario);
-    
-    // Crear controles de demo
+    // Crear controles de filtro
     createControlButtons();
+    
+    // ESPERAR A QUE EL MAPA ESTÉ LISTO antes de aplicar escenario inicial
+    function waitForMapAndApply() {
+        if (window.wayraMapReady) {
+            // Mapa listo, aplicar escenario inicial SOLO al panel lateral
+            // Los marcadores se muestran según la fecha seleccionada, NO según el escenario
+            applyScenario(wayraData.currentScenario);
+            console.log('✅ [WAYRA] Sistema de Alertas inicializado - FASE 4');
+            console.log(`📊 [WAYRA] Panel lateral: ${wayraData.currentScenario}`);
+            console.log(`🗺️ [WAYRA] Marcadores: Basados en fecha seleccionada`);
+        } else {
+            // Mapa no listo, esperar 100ms y reintentar
+            setTimeout(waitForMapAndApply, 100);
+        }
+    }
+    
+    waitForMapAndApply();
     
     // Actualizar timestamp cada minuto
     setInterval(updateLastRefresh, 60000);
     
-    console.log('✅ [WAYRA] Sistema de Alertas inicializado correctamente');
-    console.log(`📊 [WAYRA] Escenario actual: ${wayraData.currentScenario}`);
-    console.log('🎮 [WAYRA] Controles de demo disponibles (esquina inferior derecha)');
+    console.log('🔍 [WAYRA] Filtros de alerta disponibles (esquina inferior derecha)');
 }
 
 // ========== AUTO-INICIALIZACIÓN ==========

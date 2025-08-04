@@ -182,8 +182,8 @@ body {
     background: linear-gradient(45deg, var(--wayra-azul-oceano), var(--wayra-verde-andes));
 }
 
-/* ========== TIMELINE SECTION ========== */
-.timeline-container {
+/* ========== SELECTOR DE FECHAS ========== */
+.date-selector-container {
     background: var(--blanco-puro);
     border-radius: 8px;
     padding: 1.5rem;
@@ -192,7 +192,7 @@ body {
     min-height: 120px;
 }
 
-.timeline-title {
+.date-selector-title {
     font-size: 1rem;
     font-weight: 600;
     color: var(--wayra-tierra);
@@ -202,16 +202,34 @@ body {
     gap: 0.5rem;
 }
 
-.timeline-placeholder {
-    background: var(--fondo-claro);
-    height: 60px;
+.date-selector-dropdown {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--wayra-azul-oceano);
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gris-suave);
+    background: var(--blanco-puro);
+    color: var(--texto-oscuro);
     font-size: 0.9rem;
-    border: 2px dashed var(--gris-suave);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.date-selector-dropdown:hover {
+    border-color: var(--wayra-verde-andes);
+    background: var(--fondo-claro);
+}
+
+.date-selector-dropdown:focus {
+    border-color: var(--wayra-tierra);
+    box-shadow: 0 0 0 3px rgba(161, 98, 7, 0.1);
+}
+
+.date-selector-dropdown option {
+    padding: 0.5rem;
+    background: var(--blanco-puro);
+    color: var(--texto-oscuro);
 }
 
 /* ========== PANEL LATERAL ========== */

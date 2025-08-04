@@ -44,14 +44,16 @@
                     </div>
                 </div>
                 
-                <!-- Timeline Histórico -->
-                <div class="timeline-container">
-                    <div class="timeline-title">
-                        📅 Timeline Histórico: El Niño 2015-2016
+                <!-- Selector de Fechas Históricas -->
+                <div class="date-selector-container">
+                    <div class="date-selector-title">
+                        📅 Eventos Históricos El Niño
                     </div>
-                    <div class="timeline-placeholder">
-                        Timeline interactivo se implementará en Fase 5
-                    </div>
+                    <select id="date-selector" class="date-selector-dropdown">
+                        <option value="2015-12-15">Dic 2015 - El Niño Fuerte (Crítico)</option>
+                        <option value="2018-06-20">Jun 2018 - La Niña Moderada (Normal)</option>
+                        <option value="2023-03-10">Mar 2023 - El Niño Costero (Moderado)</option>
+                    </select>
                 </div>
             </section>
 
@@ -168,8 +170,9 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
     
     <!-- JavaScript WAYRA SAT - ORDEN IMPORTA -->
-    <script src="js/wayra-alerts.js"></script>  <!-- PRIMERO -->
-    <script src="js/wayra-map.js"></script>
+    <script src="js/ecuador-provincias.js"></script>  <!-- PRIMERO: Datos -->
+    <script src="js/wayra-alerts.js"></script>         <!-- SEGUNDO: Alertas -->
+    <script src="js/wayra-map.js"></script>            <!-- TERCERO: Mapa -->
     
 </body>
 </html>
